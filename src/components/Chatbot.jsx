@@ -1,4 +1,3 @@
-// src/components/Chatbot.js
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -53,19 +52,20 @@ const Chatbot = () => {
   const [input, setInput] = useState('');
 
   const sendMessage = async () => {
-  if (input.trim() === '') return;
-  const newMessage = { text: input, isUser: true };
-  setMessages([...messages, newMessage]);
-  setInput('');
+    if (input.trim() === '') return;
+    const newMessage = { text: input, isUser: true };
+    setMessages([...messages, newMessage]);
+    setInput('');
 
-  try {
-    const response = await axios.post('http://localhost:5000/api/chatbot', { message: input });
-    const botMessage = { text: response.data.reply, isUser: false };
-    setMessages([...messages, newMessage, botMessage]);
-  } catch (error) {
-    console.error('Error sending message:', error);
-  }
-};
+    try {
+      const response = await axios.post('http://localhost:5000/api/chatbot', { message: input });
+      const botMessage = { text: response.data.reply, isUser: false };
+      setMessages([...messages, newMessage, botMessage]);
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
+  };
+
   return (
     <ChatbotContainer>
       <MessagesContainer>
